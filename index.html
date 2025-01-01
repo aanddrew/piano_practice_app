@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Practice App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .exercise {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Piano Warm-Up App</h1>
+    <button id="generateButton">Generate Exercise</button>
+    <div class="exercise" id="exerciseDisplay">Press the button to start!</div>
+
+    <script>
+        const keys = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+        const modes = ["major", "minor"];
+        const scaleTypes = ["parallel", "contrary motion", "in thirds"];
+        const exerciseCategories = {
+            "Scales": () => {
+                const key = keys[Math.floor(Math.random() * keys.length)];
+                const mode = modes[Math.floor(Math.random() * modes.length)];
+                const scaleType = scaleTypes[Math.floor(Math.random() * scaleTypes.length)];
+                return `Play scales in ${key} ${mode}, ${scaleType}`;
+            },
+            "Arpeggios": () => {
+                const key = keys[Math.floor(Math.random() * keys.length)];
+                const mode = modes[Math.floor(Math.random() * modes.length)];
+                return `Play arpeggios in ${key} ${mode}`;
+            }
+        };
+
+        const button = document.getElementById('generateButton');
+        const display = document.getElementById('exerciseDisplay');
+
+        button.addEventListener('click', () => {
+            const categories = Object.keys(exerciseCategories);
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const exercise = exerciseCategories[randomCategory]();
+            display.textContent = exercise;
+        });
+    </script>
+</body>
+</html>
